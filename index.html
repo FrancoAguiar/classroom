@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Classroom - Aprendizaje Minimalista</title>
+    <!-- Fuentes premium para el diploma -->
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         /* CSS BASE OBLIGATORIO */
         body {
@@ -41,6 +43,9 @@
         .mockup-img:hover { transform: perspective(1000px) rotateY(0deg) translateY(-10px) scale(1.02); }
         details summary { list-style: none; }
         details summary::-webkit-details-marker { display: none; }
+        
+        .hidden { display: none !important; }
+
         @keyframes urgent-pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
         .animate-urgent-icon { animation: urgent-pulse 1.5s ease-in-out infinite; }
         .ai-shimmer {
@@ -51,7 +56,6 @@
         .scrollbar-hide::-webkit-scrollbar { display:none !important; height:0 !important; width:0 !important; }
         .scrollbar-hide { -ms-overflow-style:none !important; scrollbar-width:none !important; }
 
-        /* KEYFRAMES REQUERIDO */
         @keyframes shimmer {
             0% { background-position: -200% 0; }
             100% { background-position: 200% 0; }
@@ -90,6 +94,13 @@
             font-size: 0.85rem;
             font-weight: 500;
             color: #A3A3A3;
+            transition: all 0.3s;
+        }
+        
+        .progress-pill.completed-pill {
+            background: rgba(74, 222, 128, 0.1);
+            color: #4ade80;
+            border-color: rgba(74, 222, 128, 0.3);
         }
 
         .header-content h1 {
@@ -343,6 +354,51 @@
             text-transform: uppercase;
         }
 
+        /* BANNER DE CERTIFICADO */
+        .certificate-banner {
+            background: linear-gradient(135deg, rgba(255, 69, 0, 0.15) 0%, rgba(20, 20, 20, 0.8) 100%);
+            border: 1px solid rgba(255, 69, 0, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            position: relative;
+            overflow: hidden;
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .certificate-banner::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=');
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .cert-banner-text h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.5rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .cert-banner-text p {
+            margin: 0;
+            color: #A3A3A3;
+            font-size: 1rem;
+        }
+
         /* MODAL STYLE */
         .modal-overlay {
             position: fixed;
@@ -436,6 +492,17 @@
             outline: none;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-sizing: border-box;
+            appearance: none;
+        }
+
+        select.input-minimal {
+            cursor: pointer;
+            text-align-last: center;
+        }
+
+        select.input-minimal option {
+            background-color: #111;
+            color: white;
         }
 
         .input-minimal:focus {
@@ -525,6 +592,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 8px;
+            z-index: 5;
         }
 
         .btn-primary {
@@ -592,11 +661,246 @@
             z-index: 5;
         }
 
+        /* --- ESTILOS DEL CERTIFICADO --- */
+        .cert-step {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            padding: 4rem 3rem;
+            text-align: center;
+        }
+        
+        .cert-step.active {
+            display: flex;
+        }
+
+        .certificate-wrapper {
+            background-color: #050505;
+            color: #E5E5E5;
+            width: 100%;
+            padding: 4.5rem 3rem;
+            border: 2px solid #FF4500;
+            text-align: center;
+            position: relative;
+            box-sizing: border-box;
+            /* Borde interior estilo diploma premium */
+            box-shadow: inset 0 0 0 8px #050505, inset 0 0 0 9px rgba(255, 69, 0, 0.4), inset 0 0 0 16px #050505, inset 0 0 0 17px rgba(255, 255, 255, 0.08);
+        }
+
+        .cert-logo-diploma {
+            font-family: 'Archivo Black', sans-serif;
+            font-weight: 400;
+            font-size: 3rem;
+            color: #FF4500;
+            margin-bottom: 2rem;
+            text-transform: lowercase;
+            letter-spacing: -0.05em;
+            line-height: 1;
+        }
+
+        .cert-subtitle {
+            font-size: 0.9rem;
+            letter-spacing: 0.4em;
+            color: #888;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .cert-presented {
+            font-size: 1.1rem;
+            color: #A3A3A3;
+            margin-bottom: 2.5rem;
+            font-style: italic;
+        }
+
+        .cert-name {
+            font-size: 3.8rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #FF4500;
+            display: inline-block;
+            padding: 0 2rem 0.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        .cert-body {
+            font-size: 1.1rem;
+            color: #A3A3A3;
+            max-width: 550px;
+            margin: 0 auto 1.5rem;
+            line-height: 1.6;
+        }
+
+        .cert-title-text {
+            font-size: 1.5rem;
+            font-weight: 400; /* Letra más fina como solicitaste */
+            font-family: 'Inter', sans-serif;
+            color: #FF4500;
+            text-transform: uppercase;
+            letter-spacing: 0.2em; /* Mejor espaciado */
+            margin-bottom: 4rem;
+        }
+
+        .cert-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            max-width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cert-footer-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .cert-date, .cert-signature {
+            font-size: 0.9rem;
+            color: #888;
+            width: 220px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .signature-img {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 400;
+            font-size: 2.2rem;
+            color: #FFFFFF;
+            margin-bottom: 5px;
+            text-transform: lowercase;
+            letter-spacing: 0;
+        }
+
+        .date-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: #FFFFFF;
+            margin-bottom: 8px;
+            min-height: 1.6rem;
+        }
+
+        /* --- ESTILOS ESTRICTOS DE IMPRESIÓN / PDF --- */
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            @page { 
+                size: A4 landscape; 
+                margin: 0; 
+            }
+
+            html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                background-color: #050505 !important;
+                overflow: hidden !important;
+            }
+
+            /* Ocultar elementos irrelevantes para imprimir */
+            body > *:not(#certModalOverlay) { 
+                display: none !important; 
+            }
+
+            #certModalOverlay { 
+                position: absolute; 
+                inset: 0; 
+                display: flex !important; 
+                align-items: center; 
+                justify-content: center; 
+                background: #050505 !important; 
+            }
+
+            .modal-content { 
+                max-width: none !important; 
+                width: 100% !important; 
+                height: 100% !important; 
+                border: none !important; 
+                box-shadow: none !important; 
+                background: transparent !important; 
+                padding: 0 !important; 
+                display: flex !important; 
+                align-items: center; 
+                justify-content: center;
+                overflow: visible !important;
+            }
+
+            #certFormStep, #btnCloseTop, #btnCertCloseTop, .modal-footer { 
+                display: none !important; 
+            }
+
+            #certPreviewStep { 
+                display: flex !important; 
+                width: 100%; 
+                height: 100%; 
+                padding: 0; 
+                align-items: center; 
+                justify-content: center; 
+            }
+
+            /* Dimensiones estrictas para que no se deforme el A4 */
+            .certificate-wrapper { 
+                width: 297mm !important; 
+                height: 210mm !important; 
+                margin: 0 !important;
+                padding: 30mm 20mm !important; 
+                background-color: #050505 !important; 
+                border: 2px solid #FF4500 !important; 
+                box-shadow: inset 0 0 0 8px #050505, inset 0 0 0 9px rgba(255, 69, 0, 0.4), inset 0 0 0 16px #050505, inset 0 0 0 17px rgba(255, 255, 255, 0.08) !important; 
+                display: flex !important; 
+                flex-direction: column !important; 
+                justify-content: center !important; 
+                box-sizing: border-box !important;
+                transform: scale(1) !important;
+            }
+
+            /* Tamaños absolutos (pt) para evitar colapsos al imprimir */
+            .cert-logo-diploma { font-size: 36pt !important; margin-bottom: 20pt !important; }
+            .cert-subtitle { font-size: 12pt !important; margin-bottom: 10pt !important; }
+            .cert-presented { font-size: 14pt !important; margin-bottom: 25pt !important; }
+            .cert-name { font-size: 42pt !important; margin-bottom: 15pt !important; padding-bottom: 10pt !important; border-bottom: 2pt solid #FF4500 !important; }
+            .cert-body { font-size: 14pt !important; margin-bottom: 25pt !important; max-width: 600pt !important; }
+            .cert-title-text { font-size: 18pt !important; margin-bottom: 40pt !important; font-weight: 400 !important; }
+            .cert-footer { width: 85% !important; margin-top: 10pt !important; padding-top: 10pt !important; }
+            .cert-footer-block { display: flex !important; flex-direction: column !important; align-items: center !important; }
+            .cert-date, .cert-signature { font-size: 12pt !important; width: 180pt !important; border-top: 1pt solid rgba(255, 255, 255, 0.2) !important; padding-top: 10pt !important; }
+            .signature-img { font-size: 28pt !important; margin-bottom: 5pt !important; }
+            .date-value { font-size: 16pt !important; margin-bottom: 5pt !important; color: #FFFFFF !important; min-height: 16pt !important; font-family: 'Playfair Display', serif !important; }
+
+            /* Refuerzo de colores fijos */
+            .cert-name, .signature-img { color: #FFFFFF !important; }
+            .cert-title-text, .cert-logo-diploma { color: #FF4500 !important; }
+            .cert-presented, .cert-body, .cert-subtitle { color: #A3A3A3 !important; }
+            .cert-date, .cert-signature { color: #888 !important; }
+        }
+
         @media (max-width: 768px) {
             header { padding-top: 2rem; }
             .lessons-grid { grid-template-columns: 1fr; }
             .tools-grid { grid-template-columns: 1fr; }
             .modal-footer { flex-direction: column; }
+            .certificate-banner { flex-direction: column; text-align: center; }
+            .certificate-banner button { width: 100%; }
+            .certificate-wrapper { padding: 1.5rem; }
+            .cert-name { font-size: 2rem; padding: 0 1rem 0.5rem; }
+            .cert-footer { flex-direction: column; align-items: center; gap: 2rem; }
+            .cert-date, .cert-signature { width: 100%; }
+            .cert-footer-block { width: 100%; }
         }
     </style>
 </head>
@@ -618,6 +922,17 @@
         <div class="section-title">Clases disponibles</div>
         <div class="lessons-grid" id="lessonsContainer">
             <!-- Renderizado via JS -->
+        </div>
+
+        <!-- BANNER DE CERTIFICADO (Se muestra solo al completar) -->
+        <div id="certificateBanner" class="certificate-banner hidden">
+            <div class="cert-banner-text">
+                <h3>🏆 ¡Capacitación Completada!</h3>
+                <p>Has finalizado todas las clases. Reclama tu certificado oficial ahora.</p>
+            </div>
+            <button class="btn btn-primary" style="width: auto; padding: 1rem 2rem;" onclick="openCertificateModal()">
+                Obtener Certificado
+            </button>
         </div>
 
         <div class="section-title">Herramientas exclusivas</div>
@@ -699,6 +1014,63 @@
         </div>
     </div>
 
+    <!-- Modal de Certificado -->
+    <div class="modal-overlay" id="certModalOverlay">
+        <div class="modal-content" style="max-width: 900px; background: #0A0A0A;">
+            <button class="close-x" id="btnCertCloseTop" onclick="closeCertificateModal()">&times;</button>
+            
+            <!-- Paso 1: Formulario -->
+            <div id="certFormStep" class="cert-step active">
+                <div class="logo" style="margin-bottom: 2rem;">@necesitodisenos</div>
+                <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">Configura tu diploma</h2>
+                <p style="color: #737373; margin-bottom: 2rem;">Verifica cómo quieres que aparezca tu nombre y título.</p>
+                
+                <div style="width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 1rem;">
+                    <input type="text" id="certInputName" class="input-minimal" placeholder="Tu Nombre y Apellido">
+                    <select id="certInputTitle" class="input-minimal">
+                        <option value="Diseñador Estratégico">Diseñador Estratégico</option>
+                        <option value="Diseñadora Estratégica">Diseñadora Estratégica</option>
+                    </select>
+                    <button class="btn btn-primary" style="margin-top: 1rem;" onclick="generateCertificate()">Generar Certificado</button>
+                </div>
+            </div>
+
+            <!-- Paso 2: Vista del Diploma -->
+            <div id="certPreviewStep" class="cert-step">
+                <div class="certificate-wrapper" id="printableCertificate">
+                    <div class="cert-logo-diploma">nd.</div>
+                    <div class="cert-subtitle">CERTIFICADO DE FINALIZACIÓN</div>
+                    <div class="cert-presented">Este documento certifica que</div>
+                    
+                    <div class="cert-name" id="renderCertName">Nombre del Alumno</div>
+                    
+                    <div class="cert-body">Ha completado satisfactoriamente el programa de capacitación y obtenido el título de</div>
+                    
+                    <div class="cert-title-text" id="renderCertTitle">Diseñador Estratégico</div>
+                    
+                    <div class="cert-footer">
+                        <div class="cert-footer-block">
+                            <div class="date-value" id="renderCertDate"></div>
+                            <div class="cert-date">Fecha</div>
+                        </div>
+                        <div class="cert-footer-block">
+                            <div class="signature-img">necesitodisenos</div>
+                            <div class="cert-signature">Dirección General</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer" style="margin-top: 2rem; width: 100%;">
+                    <button class="btn btn-primary" onclick="printCertificate()">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6v-8z"></path></svg>
+                        Imprimir / Guardar PDF
+                    </button>
+                    <button class="btn btn-secondary" onclick="closeCertificateModal()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // DATOS DE LAS LECCIONES
         const lessons = [
@@ -719,10 +1091,7 @@
                 imageUrl: "https://images.unsplash.com/photo-1512314889357-e157c22f938d?auto=format&fit=crop&w=800&q=80",
                 duration: "15:03",
                 description: "Aprendé a poner precios y decirlos con seguridad sin que te regateen. Empieza a cobrar como profesional.",
-                bullets: ["Instagram como sistema", 
-"Perfil que convierte", 
-"Contenido con intención", 
-"DMs que cierran"],
+                bullets: ["Instagram como sistema", "Perfil que convierte", "Contenido con intención", "DMs que cierran"],
                 completed: false
             }
         ];
@@ -743,6 +1112,10 @@
         const userSubGreeting = document.getElementById('userSubGreeting');
         const userNameInput = document.getElementById('userNameInput');
         const btnSaveName = document.getElementById('btnSaveName');
+        
+        // Elementos Certificado
+        const certificateBanner = document.getElementById('certificateBanner');
+        const certModalOverlay = document.getElementById('certModalOverlay');
 
         // GESTIÓN DE PERSONALIZACIÓN
         function checkUser() {
@@ -852,6 +1225,62 @@
         function updateProgressText() {
             const completedCount = lessons.filter(l => l.completed).length;
             globalProgress.innerText = `Progreso: ${completedCount}/${lessons.length}`;
+            
+            // Estilo visual si completa todo
+            if (completedCount === lessons.length) {
+                globalProgress.classList.add('completed-pill');
+                certificateBanner.classList.remove('hidden');
+            } else {
+                globalProgress.classList.remove('completed-pill');
+                certificateBanner.classList.add('hidden');
+            }
+        }
+
+        // --- FUNCIONALIDAD DEL CERTIFICADO ---
+
+        function openCertificateModal() {
+            certModalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Reiniciar al paso 1 (formulario)
+            document.getElementById('certFormStep').classList.add('active');
+            document.getElementById('certPreviewStep').classList.remove('active');
+            
+            // Autocompletar nombre
+            const savedName = localStorage.getItem('classroomUserName') || '';
+            document.getElementById('certInputName').value = savedName;
+        }
+
+        function closeCertificateModal() {
+            certModalOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function generateCertificate() {
+            const name = document.getElementById('certInputName').value.trim();
+            const title = document.getElementById('certInputTitle').value;
+            
+            if (!name) {
+                alert("Por favor ingresa tu nombre para el certificado.");
+                return;
+            }
+
+            // Inyectar datos en el diploma
+            document.getElementById('renderCertName').innerText = name;
+            document.getElementById('renderCertTitle').innerText = title;
+            
+            // Generar fecha actual
+            const today = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('renderCertDate').innerText = today.toLocaleDateString('es-ES', options);
+
+            // Cambiar al paso 2 (preview)
+            document.getElementById('certFormStep').classList.remove('active');
+            document.getElementById('certPreviewStep').classList.add('active');
+        }
+
+        function printCertificate() {
+            window.print();
         }
 
         // EVENTOS
@@ -866,7 +1295,10 @@
 
         // Cerrar con Escape
         window.onkeydown = (e) => {
-            if (e.key === 'Escape') closeModal();
+            if (e.key === 'Escape') {
+                closeModal();
+                closeCertificateModal();
+            }
         };
 
         // INICIO
