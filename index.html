@@ -324,6 +324,37 @@
             transform: translateY(0);
         }
 
+        /* WELCOME MODAL SPECIFIC */
+        .welcome-content {
+            max-width: 400px;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .welcome-content h2 {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .input-minimal {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            outline: none;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+
+        .input-minimal:focus {
+            border-color: #FF4500;
+        }
+
         .video-container {
             aspect-ratio: 16/9;
             background: #000;
@@ -487,8 +518,8 @@
             <div class="progress-pill" id="globalProgress">Progreso: 0/2</div>
         </div>
         <div class="header-content">
-            <h1>Classroom</h1>
-            <p>Elige una lección y aprende en 5 minutos. Contenido optimizado para tu crecimiento profesional.</p>
+            <h1 id="userGreeting">Classroom</h1>
+            <p id="userSubGreeting">Elige una lección y aprende en 5 minutos. Contenido optimizado para tu crecimiento profesional.</p>
         </div>
     </header>
 
@@ -524,7 +555,17 @@
         </div>
     </main>
 
-    <!-- Modal Template -->
+    <!-- Modal de Bienvenida (Nombre) -->
+    <div class="modal-overlay" id="welcomeModal">
+        <div class="modal-content welcome-content">
+            <h2>Bienvenido a Classroom</h2>
+            <p style="color: #737373; margin-bottom: 2rem;">Para personalizar tu experiencia, ¿cómo te llamas?</p>
+            <input type="text" id="userNameInput" class="input-minimal" placeholder="Tu nombre aquí..." autofocus>
+            <button class="btn btn-primary" id="btnSaveName">Comenzar aprendizaje</button>
+        </div>
+    </div>
+
+    <!-- Modal de Lección -->
     <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
         <div class="modal-content" id="modalContent">
             <button class="close-x" id="btnCloseTop" aria-label="Cerrar modal">&times;</button>
@@ -578,12 +619,44 @@
         // ELEMENTOS DOM
         const lessonsContainer = document.getElementById('lessonsContainer');
         const modalOverlay = document.getElementById('modalOverlay');
+        const welcomeModal = document.getElementById('welcomeModal');
         const modalTitle = document.getElementById('modalTitle');
         const modalDescription = document.getElementById('modalDescription');
         const modalVideo = document.getElementById('modalVideo');
         const modalBullets = document.getElementById('modalBullets');
         const btnMarkComplete = document.getElementById('btnMarkComplete');
         const globalProgress = document.getElementById('globalProgress');
+        const userGreeting = document.getElementById('userGreeting');
+        const userSubGreeting = document.getElementById('userSubGreeting');
+        const userNameInput = document.getElementById('userNameInput');
+        const btnSaveName = document.getElementById('btnSaveName');
+
+        // GESTIÓN DE PERSONALIZACIÓN
+        function checkUser() {
+            const savedName = localStorage.getItem('classroomUserName');
+            if (!savedName) {
+                welcomeModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            } else {
+                applyPersonalization(savedName);
+            }
+        }
+
+        function applyPersonalization(name) {
+            userGreeting.innerText = `Hola, ${name}`;
+            userSubGreeting.innerText = `Bienvenido de nuevo a tu espacio de aprendizaje. Tienes ${lessons.length} lecciones esperándote.`;
+            document.title = `${name} - Classroom`;
+        }
+
+        btnSaveName.onclick = () => {
+            const name = userNameInput.value.trim();
+            if (name) {
+                localStorage.setItem('classroomUserName', name);
+                applyPersonalization(name);
+                welcomeModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        };
 
         // RENDERIZAR TARJETAS
         function renderLessons() {
@@ -670,7 +743,7 @@
         document.getElementById('btnClose').onclick = closeModal;
         document.getElementById('btnCloseTop').onclick = closeModal;
 
-        // Cerrar al click fuera
+        // Cerrar al click fuera (solo para el modal de lección)
         modalOverlay.onclick = (e) => {
             if (e.target === modalOverlay) closeModal();
         };
@@ -681,7 +754,10 @@
         };
 
         // INICIO
-        window.onload = renderLessons;
+        window.onload = () => {
+            checkUser();
+            renderLessons();
+        };
     </script>
 </body>
 </html>
