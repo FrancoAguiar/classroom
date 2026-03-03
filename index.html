@@ -160,6 +160,8 @@
         .thumbnail {
             aspect-ratio: 16/9;
             background: linear-gradient(45deg, #1A1A1A, #2A2A2A);
+            background-size: cover;
+            background-position: center;
             position: relative;
             display: flex;
             align-items: center;
@@ -170,13 +172,12 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at center, rgba(255,69,0,0.1) 0%, transparent 70%);
-            opacity: 0;
+            background: radial-gradient(circle at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%);
             transition: opacity 0.4s;
         }
 
         .lesson-card:hover .thumbnail::after {
-            opacity: 1;
+            background: radial-gradient(circle at center, rgba(255,69,0,0.1) 0%, rgba(0,0,0,0.7) 100%);
         }
 
         .play-icon {
@@ -705,6 +706,7 @@
                 id: 1,
                 title: "Bienvenida y mapa del curso",
                 youtubeId: "0az-XVfg80A",
+                imageUrl: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80",
                 duration: "5:12",
                 description: "Te muestro cómo está organizada la experiencia y cómo avanzar rápido sin perderte.",
                 bullets: ["Cómo navegar el aula", "Qué ver primero", "Cómo medir tu progreso"],
@@ -714,6 +716,7 @@
                 id: 2,
                 title: "Tu primer resultado en 10 minutos",
                 youtubeId: "ysz5S6PUM-U",
+                imageUrl: "https://images.unsplash.com/photo-1512314889357-e157c22f938d?auto=format&fit=crop&w=800&q=80",
                 duration: "8:04",
                 description: "Configura lo mínimo y consigue un resultado visible hoy mismo.",
                 bullets: ["Setup esencial", "Atajos que ahorran tiempo", "Errores comunes"],
@@ -773,8 +776,11 @@
                 card.className = `lesson-card ${lesson.completed ? 'is-completed' : ''}`;
                 card.onclick = () => openModal(lesson.id);
                 
+                // Usamos la miniatura de imagen definida en los datos
+                const thumbUrl = lesson.imageUrl;
+                
                 card.innerHTML = `
-                    <div class="thumbnail">
+                    <div class="thumbnail" style="background-image: url('${thumbUrl}')">
                         <div class="play-icon">
                             <svg width="20" height="20" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                         </div>
