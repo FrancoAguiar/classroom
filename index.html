@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Classroom - Aprendizaje Minimalista</title>
-    <!-- Fuentes premium para el diploma -->
+    <!-- Fuentes premium para el diploma y header -->
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         /* CSS BASE OBLIGATORIO */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px; /* Compensa la altura del header fijo */
+        }
+        
         body {
             background-color: #0A0A0A;
             color: #E5E5E5;
@@ -35,55 +40,92 @@
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #0A0A0A; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
-        .mockup-img {
-            transform: perspective(1000px) rotateY(-5deg);
-            transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));
-        }
-        .mockup-img:hover { transform: perspective(1000px) rotateY(0deg) translateY(-10px) scale(1.02); }
-        details summary { list-style: none; }
-        details summary::-webkit-details-marker { display: none; }
-        
         .hidden { display: none !important; }
 
-        @keyframes urgent-pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
-        .animate-urgent-icon { animation: urgent-pulse 1.5s ease-in-out infinite; }
-        .ai-shimmer {
-            background: linear-gradient(90deg, rgba(255,69,0,0) 0%, rgba(255,69,0,0.1) 50%, rgba(255,69,0,0) 100%);
-            background-size: 200% 100%;
-            animation: shimmer 2s infinite linear;
+        /* --- NAVBAR MINIMALISTA PREMIUM --- */
+        .top-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2.5rem;
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 100;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
         }
-        .scrollbar-hide::-webkit-scrollbar { display:none !important; height:0 !important; width:0 !important; }
-        .scrollbar-hide { -ms-overflow-style:none !important; scrollbar-width:none !important; }
 
-        @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
+        .nav-logo {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1.8rem;
+            color: #FF4500;
+            text-transform: lowercase;
+            text-decoration: none;
+            letter-spacing: -0.05em;
+            line-height: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #A3A3A3;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: #FF4500;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #FFFFFF;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         /* DISEÑO ADICIONAL PREMIUM */
-        header {
+        .hero-section {
             max-width: 1000px;
             margin: 0 auto;
-            padding: 4rem 1.5rem 2rem;
+            padding: 8rem 1.5rem 2rem; /* Aumentado padding-top por el header fijo */
             display: flex;
             flex-direction: column;
             gap: 1rem;
         }
 
-        .nav-top {
+        .hero-top {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            justify-content: flex-end; /* Alinea a la derecha */
             margin-bottom: 2rem;
-        }
-
-        .logo {
-            font-weight: 800;
-            font-size: 1.2rem;
-            letter-spacing: -0.02em;
-            color: #FF4500;
-            text-transform: uppercase;
         }
 
         .progress-pill {
@@ -95,6 +137,7 @@
             font-weight: 500;
             color: #A3A3A3;
             transition: all 0.3s;
+            display: inline-block;
         }
         
         .progress-pill.completed-pill {
@@ -661,7 +704,7 @@
             z-index: 5;
         }
 
-        /* --- ESTILOS DEL CERTIFICADO (AHORA USA CANVAS) --- */
+        /* --- ESTILOS DEL CERTIFICADO (CANVAS) --- */
         .cert-step {
             display: none;
             flex-direction: column;
@@ -674,7 +717,6 @@
             display: flex;
         }
 
-        /* Contenedor del canvas para que sea responsivo en pantalla */
         .canvas-container {
             width: 100%;
             display: flex;
@@ -695,7 +737,11 @@
         }
 
         @media (max-width: 768px) {
-            header { padding-top: 2rem; }
+            .hero-section { padding-top: 7rem; }
+            .top-navbar { padding: 1rem 1.5rem; }
+            .nav-links { gap: 1rem; }
+            .nav-links a { font-size: 0.75rem; letter-spacing: 0.05em; }
+            
             .lessons-grid { grid-template-columns: 1fr; }
             .tools-grid { grid-template-columns: 1fr; }
             .modal-footer { flex-direction: column; }
@@ -708,9 +754,19 @@
 <body>
     <div class="bg-grid-pattern"></div>
 
-    <header>
-        <div class="nav-top">
-            <div class="logo">TU AULA VIRTUAL</div>
+    <!-- NAVBAR FIJA MINIMALISTA -->
+    <nav class="top-navbar">
+        <a href="#" class="nav-logo">nd.</a>
+        <div class="nav-links">
+            <a href="#clases">Clases</a>
+            <a href="#herramientas">Herramientas</a>
+            <a href="https://instagram.com/necesitodisenos" target="_blank" rel="noopener noreferrer">Contacto</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION MODIFICADA -->
+    <header class="hero-section">
+        <div class="hero-top">
             <div class="progress-pill" id="globalProgress">Progreso: 0/2</div>
         </div>
         <div class="header-content">
@@ -720,7 +776,8 @@
     </header>
 
     <main>
-        <div class="section-title">Clases disponibles</div>
+        <!-- ANCLAJE PARA CLASES -->
+        <div id="clases" class="section-title">Clases disponibles</div>
         <div class="lessons-grid" id="lessonsContainer">
             <!-- Renderizado via JS -->
         </div>
@@ -736,7 +793,8 @@
             </button>
         </div>
 
-        <div class="section-title">Herramientas exclusivas</div>
+        <!-- ANCLAJE PARA HERRAMIENTAS -->
+        <div id="herramientas" class="section-title">Herramientas exclusivas</div>
         <div class="tools-container">
             <div class="tools-grid">
                 <!-- Herramienta: Contrato -->
@@ -848,7 +906,7 @@
                 <div class="modal-footer" style="margin-top: 1rem; width: 100%; justify-content: center;">
                     <button class="btn btn-primary" onclick="downloadCertificate()" style="max-width: 300px;">
                         <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                        Descargar Certificado HD
+                        Descargar Imagen HD
                     </button>
                     <button class="btn btn-secondary" onclick="closeCertificateModal()">Volver</button>
                 </div>
@@ -1134,7 +1192,7 @@
             ctx.font = "34px 'Inter', sans-serif";
             ctx.fillStyle = '#A3A3A3';
             ctx.fillText("Ha completado satisfactoriamente el programa de", W / 2, 920);
-            ctx.fillText("capacitación y obtenido el título de:", W / 2, 970);
+            ctx.fillText("capacitación y obtenido el título de", W / 2, 970);
 
             // Título (Diseñador Estratégico)
             ctx.font = "400 48px 'Inter', sans-serif";
