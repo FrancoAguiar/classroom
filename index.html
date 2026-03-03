@@ -381,35 +381,66 @@
             transform: translateY(0);
         }
 
-        /* WELCOME MODAL SPECIFIC */
+        /* WELCOME MODAL IMPROVED */
         .welcome-content {
-            max-width: 400px;
-            padding: 3rem 2rem;
+            max-width: 480px;
+            padding: 4rem 3rem;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: linear-gradient(180deg, #111 0%, #0A0A0A 100%);
         }
 
         .welcome-content h2 {
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-            font-weight: 800;
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            color: white;
+        }
+
+        .welcome-content p.description {
+            color: #737373;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .welcome-footer {
+            margin-top: 2rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: #404040;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .welcome-content:hover .welcome-footer {
+            color: #FF4500;
         }
 
         .input-minimal {
             width: 100%;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 1rem;
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 1.25rem;
+            border-radius: 16px;
             color: white;
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            text-align: center;
             outline: none;
-            transition: border-color 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-sizing: border-box;
         }
 
         .input-minimal:focus {
-            border-color: #FF4500;
+            border-color: rgba(255, 69, 0, 0.5);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 30px rgba(255, 69, 0, 0.05);
         }
 
         .video-container {
@@ -496,14 +527,16 @@
         }
 
         .btn-primary {
-            background: #E5E5E5;
-            color: #0A0A0A;
-            flex: 1;
+            background: white;
+            color: #000;
+            width: 100%;
+            font-weight: 700;
+            padding: 1rem;
         }
 
         .btn-primary:hover {
-            background: #FFFFFF;
             transform: scale(1.02);
+            background: #f0f0f0;
         }
 
         .btn-primary.completed {
@@ -576,7 +609,7 @@
         </div>
         <div class="header-content">
             <h1 id="userGreeting">Bienvenido/a</h1>
-            <p id="userSubGreeting">Elige una lección y aprende en minutos. </br>Contenido optimizado para tu crecimiento profesional.</p>
+            <p id="userSubGreeting">Elige una lección y aprende en minutos. <br>Contenido optimizado para tu crecimiento profesional.</p>
         </div>
     </header>
 
@@ -632,9 +665,10 @@
     <div class="modal-overlay" id="welcomeModal">
         <div class="modal-content welcome-content">
             <h2>Bienvenido/a</h2>
-            <p style="color: #737373; margin-bottom: 2rem;">Para personalizar tu experiencia, ¿cómo te llamas?</p>
-            <input type="text" id="userNameInput" class="input-minimal" placeholder="Tu nombre aquí..." autofocus>
+            <p class="description">Para personalizar tu experiencia y brindarte un acceso exclusivo, ¿cómo te llamas?</p>
+            <input type="text" id="userNameInput" class="input-minimal" placeholder="Escribe tu nombre aquí..." autofocus>
             <button class="btn btn-primary" id="btnSaveName">Comenzar aprendizaje</button>
+            <div class="welcome-footer">@necesitodisenos</div>
         </div>
     </div>
 
@@ -657,7 +691,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button class="btn btn-primary" id="btnMarkComplete">Marcar como visto</button>
+                    <button class="btn btn-primary" id="btnMarkComplete" style="width: auto;">Marcar como visto</button>
                     <button class="btn btn-secondary" id="btnClose">Cerrar</button>
                 </div>
             </div>
@@ -717,7 +751,7 @@
 
         function applyPersonalization(name) {
             userGreeting.innerText = `Hola, ${name}`;
-            userSubGreeting.innerText = `Bienvenido de nuevo a tu espacio de aprendizaje. Tienes ${lessons.length} lecciones esperándote.`;
+            userSubGreeting.innerHTML = `Bienvenido de nuevo a tu espacio de aprendizaje. Tienes ${lessons.length} lecciones esperándote.`;
             document.title = `${name} - Classroom`;
         }
 
