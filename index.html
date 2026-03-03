@@ -254,6 +254,8 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            text-decoration: none; /* Eliminar subrayado */
+            color: inherit; /* Mantener color del texto */
         }
 
         .tool-mini-card:hover {
@@ -498,24 +500,27 @@
 
         <div class="section-title">Herramientas rápidas</div>
         <div class="tools-grid">
-            <div class="tool-mini-card">
+            <!-- Herramienta: Contrato -->
+            <a href="https://docs.google.com/document/d/118a6jsZcyBbM4U4pCyvCGuetkOo5K9Eo/edit?usp=drive_link&ouid=113331497170759901371&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer" class="tool-mini-card">
                 <div class="tool-icon">
                     <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                 </div>
                 <span>Contrato Editable</span>
-            </div>
-            <div class="tool-mini-card">
+            </a>
+            <!-- Herramienta: Facturación -->
+            <a href="https://facturand.vercel.app" target="_blank" rel="noopener noreferrer" class="tool-mini-card">
                 <div class="tool-icon">
                     <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                 </div>
                 <span>Facturación</span>
-            </div>
-            <div class="tool-mini-card">
+            </a>
+            <!-- Herramienta: Calculadora -->
+            <a href="https://calculadorafreelance.vercel.app" target="_blank" rel="noopener noreferrer" class="tool-mini-card">
                 <div class="tool-icon">
                     <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                 </div>
                 <span>Calculadora</span>
-            </div>
+            </a>
         </div>
     </main>
 
@@ -613,7 +618,7 @@
             activeLessonId = id;
             modalTitle.innerText = lesson.title;
             modalDescription.innerText = lesson.description;
-            modalVideo.src = `https://www.youtube.com/embed/${lesson.youtubeId}`;
+            modalVideo.src = `https://www.youtube.com/embed/${lesson.youtubeId}?autoplay=1`;
             
             modalBullets.innerHTML = lesson.bullets
                 .map(bullet => `<li>${bullet}</li>`)
