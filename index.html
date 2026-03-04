@@ -52,8 +52,8 @@
         .bg-grid-pattern {
             background-size: 40px 40px;
             background-image:
-                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+                linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
             mask-image: radial-gradient(circle at 50% 30%, black 50%, transparent 100%);
             -webkit-mask-image: radial-gradient(circle at 50% 30%, black 50%, transparent 100%);
             position: fixed;
@@ -106,9 +106,6 @@
             opacity: 1;
             transform: translateY(0);
         }
-        .reveal-delay-1 { transition-delay: 0.1s; }
-        .reveal-delay-2 { transition-delay: 0.2s; }
-        .reveal-delay-3 { transition-delay: 0.3s; }
 
         /* --- NAVBAR MINIMALISTA PREMIUM --- */
         .top-navbar {
@@ -183,14 +180,14 @@
             width: 100%;
         }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO SECTION MEJORADA --- */
         header {
             max-width: 1000px;
             margin: 0 auto;
             padding: 10rem 1.5rem 4rem; 
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 1rem;
             position: relative;
         }
 
@@ -286,7 +283,7 @@
             font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 0.2em;
-            color: #666;
+            color: #888;
             margin-bottom: 2rem;
             margin-top: 4rem;
             display: flex;
@@ -509,7 +506,7 @@
         .tool-icon-box {
             width: 50px;
             height: 50px;
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--border-subtle);
             color: var(--primary);
             border-radius: 14px;
@@ -614,62 +611,6 @@
             font-weight: 300;
         }
 
-        /* --- BOTONES PREMIUM --- */
-        .btn {
-            padding: 14px 28px;
-            border-radius: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            border: none;
-            font-size: 1rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-family: inherit;
-            letter-spacing: 0.02em;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            color: #FFF;
-            font-weight: 700;
-            box-shadow: 0 10px 20px rgba(255, 69, 0, 0.2);
-            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 30px rgba(255, 69, 0, 0.3);
-            background: linear-gradient(135deg, #FF5511 0%, #FF7A44 100%);
-        }
-        
-        .btn-primary:active { transform: translateY(0); }
-
-        .btn-primary.completed {
-            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
-            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
-        }
-
-        .btn-primary.completed:hover {
-            box-shadow: 0 15px 30px rgba(16, 185, 129, 0.3);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-muted);
-            border: 1px solid var(--border-subtle);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.05);
-            color: white;
-            border-color: rgba(255,255,255,0.1);
-        }
-
         /* --- MODALES Y FORMULARIOS --- */
         .modal-overlay {
             position: fixed;
@@ -693,7 +634,7 @@
         }
 
         .modal-content {
-            background: #0A0A0A;
+            background: #050505;
             width: 100%;
             max-width: 850px;
             max-height: 90vh;
@@ -710,21 +651,23 @@
             transform: translateY(0) scale(1);
         }
 
+        /* WELCOME MODAL IMPROVED */
         .welcome-content {
-            max-width: 500px;
-            padding: 5rem 3rem;
+            max-width: 480px;
+            padding: 4rem 3rem;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 1.5rem;
-            background: radial-gradient(circle at top, rgba(20,20,20,1) 0%, #0A0A0A 100%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: radial-gradient(circle at top, rgba(20,20,20,1) 0%, #050505 100%);
         }
 
         .welcome-content h2 {
             margin: 0;
             font-size: 2.2rem;
-            font-weight: 800;
+            font-weight: 900;
             letter-spacing: -0.04em;
             color: white;
         }
@@ -733,7 +676,7 @@
             color: var(--text-muted);
             font-size: 1.05rem;
             line-height: 1.6;
-            margin: 0 0 1rem 0;
+            margin: 0;
             font-weight: 300;
         }
 
@@ -742,14 +685,18 @@
             font-size: 0.75rem;
             font-weight: 700;
             letter-spacing: 0.15em;
-            color: #555;
+            color: #666;
             text-transform: uppercase;
             transition: color 0.3s;
         }
 
+        .welcome-content:hover .welcome-footer {
+            color: #FF4500;
+        }
+
         .input-minimal {
             width: 100%;
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border-subtle);
             padding: 1.25rem;
             border-radius: 16px;
@@ -763,13 +710,20 @@
             font-family: inherit;
         }
 
-        select.input-minimal { cursor: pointer; text-align-last: center; }
-        select.input-minimal option { background-color: #111; color: white; }
+        select.input-minimal {
+            cursor: pointer;
+            text-align-last: center;
+        }
+
+        select.input-minimal option {
+            background-color: #111;
+            color: white;
+        }
 
         .input-minimal:focus {
             border-color: var(--primary);
-            background: rgba(255, 255, 255, 0.04);
-            box-shadow: 0 0 20px rgba(255, 69, 0, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 20px rgba(255, 69, 0, 0.15);
         }
 
         .video-container {
@@ -779,15 +733,31 @@
         }
 
         .video-container iframe {
-            width: 100%; height: 100%; border: none;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
-        .modal-body { padding: 2.5rem; }
-        .modal-body h2 { margin: 0 0 1rem 0; font-size: 1.8rem; font-weight: 600; letter-spacing: -0.02em; }
-        .modal-body p { color: var(--text-muted); line-height: 1.6; margin-bottom: 2rem; font-weight: 300; }
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-body h2 {
+            margin: 0 0 1rem 0;
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .modal-body p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
 
         .learning-list {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.03);
             border-radius: 16px;
             border: 1px solid var(--border-subtle);
             padding: 2rem;
@@ -799,14 +769,99 @@
             font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            color: #777;
+            color: #888;
         }
 
-        .learning-list ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem; }
-        .learning-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.95rem; font-weight: 300; line-height: 1.5; color: #ddd; }
-        .learning-list li::before { content: '✦'; color: var(--primary); font-weight: bold; }
+        .learning-list ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            gap: 1rem;
+        }
 
-        .modal-footer { display: flex; gap: 1rem; margin-top: 1rem; width: 100%; }
+        .learning-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.95rem;
+            font-weight: 300;
+            line-height: 1.5;
+            color: #ddd;
+        }
+
+        .learning-list li::before {
+            content: '✦';
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            width: 100%;
+        }
+
+        /* --- BOTONES PREMIUM --- */
+        .btn {
+            padding: 14px 28px;
+            border-radius: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-family: inherit;
+            letter-spacing: 0.02em;
+            position: relative;
+            overflow: hidden;
+            z-index: 5;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: #FFF;
+            width: 100%;
+            font-weight: 700;
+            padding: 1rem;
+            box-shadow: 0 10px 20px rgba(255, 69, 0, 0.2);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(255, 69, 0, 0.3);
+            background: linear-gradient(135deg, #FF5511 0%, #FF7A44 100%);
+        }
+        
+        .btn-primary:active { transform: translateY(0); }
+
+        .btn-primary.completed {
+            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(74, 222, 128, 0.2);
+        }
+        
+        .btn-primary.completed:hover {
+            box-shadow: 0 15px 30px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border-color: rgba(255,255,255,0.1);
+        }
 
         .close-x {
             position: absolute;
@@ -895,7 +950,7 @@
         </div>
     </nav>
 
-    <!-- HERO SECTION MEJORADA -->
+    <!-- HERO SECTION CON BADGE -->
     <header class="reveal">
         <div class="hero-top-badges">
             <span class="subtitle-badge">TU AULA VIRTUAL</span>
@@ -913,13 +968,13 @@
             <!-- Renderizado via JS -->
         </div>
 
-        <!-- BANNER DE CERTIFICADO -->
+        <!-- BANNER DE CERTIFICADO (Se muestra solo al completar) -->
         <div id="certificateBanner" class="certificate-banner hidden reveal">
             <div class="cert-banner-text">
                 <h3>🏆 ¡Capacitación Completada!</h3>
                 <p>Has finalizado todas las clases. Reclama tu certificado oficial ahora.</p>
             </div>
-            <button class="btn btn-primary" style="width: auto; padding: 1rem 2.5rem;" onclick="openCertificateModal()">
+            <button class="btn btn-primary" style="width: auto; padding: 1rem 2rem;" onclick="openCertificateModal()">
                 Obtener Certificado
             </button>
         </div>
@@ -972,7 +1027,7 @@
             <div class="nav-logo" style="margin-bottom: 1rem; font-size: 3rem;">nd.</div>
             <h2>Bienvenido/a</h2>
             <p class="description">Para personalizar tu experiencia y brindarte un acceso exclusivo, ¿cómo te llamas?</p>
-            <input type="text" id="userNameInput" class="input-minimal" placeholder="Escribe tu nombre aquí..." autofocus autocomplete="off">
+            <input type="text" id="userNameInput" class="input-minimal" placeholder="Escribe tu nombre aquí..." autofocus>
             <button class="btn btn-primary" id="btnSaveName" style="padding: 1.2rem; margin-top: 0.5rem;">Comenzar aprendizaje</button>
             <div class="welcome-footer">@necesitodisenos</div>
         </div>
@@ -1012,41 +1067,41 @@
             <!-- Paso 1: Formulario -->
             <div id="certFormStep" class="cert-step active">
                 <div class="nav-logo" style="margin-bottom: 2rem; font-size: 3rem;">nd.</div>
-                <h2 style="font-size: 2.2rem; margin-bottom: 0.5rem;">Configura tu diploma</h2>
-                <p style="color: var(--text-muted); margin-bottom: 2rem; font-weight: 300;">Verifica cómo quieres que aparezca tu nombre y título.</p>
+                <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">Configura tu diploma</h2>
+                <p style="color: #737373; margin-bottom: 2rem;">Verifica cómo quieres que aparezca tu nombre y título.</p>
                 
-                <div style="width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: 1.2rem;">
+                <div style="width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 1rem;">
                     <input type="text" id="certInputName" class="input-minimal" placeholder="Tu Nombre y Apellido">
                     <select id="certInputTitle" class="input-minimal">
                         <option value="Diseñador Estratégico">Diseñador Estratégico</option>
                         <option value="Diseñadora Estratégica">Diseñadora Estratégica</option>
                     </select>
-                    <button class="btn btn-primary" style="margin-top: 1rem; padding: 1.2rem;" onclick="generateCanvasCertificate()">Generar Certificado</button>
+                    <button class="btn btn-primary" style="margin-top: 1rem;" onclick="generateCanvasCertificate()">Generar Certificado</button>
                 </div>
             </div>
 
             <!-- Paso 2: Vista del Diploma renderizado en Canvas -->
             <div id="certPreviewStep" class="cert-step" style="padding: 2rem;">
-                <h3 style="margin-bottom: 1.5rem; color: #FFF; font-weight: 600;">Tu Certificado Oficial</h3>
+                <h3 style="margin-bottom: 1rem; color: #E5E5E5;">Tu Certificado Oficial</h3>
                 
                 <!-- Aquí se dibujará el certificado como imagen vectorial HD -->
                 <div class="canvas-container">
                     <canvas id="certCanvas" width="2000" height="1414"></canvas>
                 </div>
 
-                <div class="modal-footer" style="margin-top: 1rem; width: 100%; justify-content: center; gap: 1.5rem;">
-                    <button class="btn btn-primary" onclick="downloadCertificate()" style="width: auto; padding: 1rem 2rem;">
-                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                <div class="modal-footer" style="margin-top: 1rem; width: 100%; justify-content: center;">
+                    <button class="btn btn-primary" onclick="downloadCertificate()" style="max-width: 300px;">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4-4m0 0l-4-4m4 4V4"></path></svg>
                         Descargar Certificado HD
                     </button>
-                    <button class="btn btn-secondary" style="width: auto; padding: 1rem 2rem;" onclick="closeCertificateModal()">Volver</button>
+                    <button class="btn btn-secondary" onclick="closeCertificateModal()">Volver</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // DATOS DE LAS LECCIONES - EXACTAMENTE LOS MISMOS
+        // DATOS DE LAS LECCIONES - EXACTAMENTE LOS MISMOS QUE SOLICITASTE
         const lessons = [
             {
                 id: 1,
@@ -1119,9 +1174,9 @@
         }
 
         function applyPersonalization(name) {
-            const firstName = name.split(' ')[0]; // Solo el primer nombre para el saludo
-            userGreeting.innerText = `Hola, ${firstName}`;
-            document.title = `${firstName} | nd. Premium`;
+            userGreeting.innerText = `Hola, ${name}`;
+            userSubGreeting.innerHTML = `Bienvenido a tu espacio de aprendizaje de @necesitodisenos. Tienes ${lessons.length} lecciones esperándote.`;
+            document.title = `${name} - Classroom`;
         }
 
         btnSaveName.onclick = () => {
@@ -1134,17 +1189,13 @@
             }
         };
 
-        userNameInput.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') btnSaveName.click();
-        });
-
         // RENDERIZAR TARJETAS
         function renderLessons() {
             lessonsContainer.innerHTML = '';
             lessons.forEach((lesson, index) => {
                 const card = document.createElement('div');
                 card.className = `lesson-card reveal ${lesson.completed ? 'is-completed' : ''}`;
-                card.style.transitionDelay = `${index * 0.1}s`; // Efecto cascada
+                card.style.transitionDelay = `${index * 0.1}s`;
                 card.onclick = () => openModal(lesson.id);
                 
                 const thumbUrl = lesson.imageUrl;
