@@ -456,6 +456,96 @@
         .lesson-card.is-completed .thumbnail { filter: grayscale(50%); }
         .lesson-card.is-completed:hover .thumbnail { filter: grayscale(0%); }
 
+        /* --- SECCIÓN E-BOOK EXCLUSIVO --- */
+        .ebook-card {
+            background: var(--surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .ebook-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0.5;
+            transition: var(--transition);
+        }
+
+        .ebook-card:hover {
+            border-color: var(--border-hover);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 40px rgba(255, 69, 0, 0.08);
+            background: var(--surface-hover);
+            transform: translateY(-4px);
+        }
+
+        .ebook-cover-container {
+            width: 300px;
+            min-width: 300px;
+            background: linear-gradient(135deg, #222 0%, #0a0a0a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            border-right: 1px solid var(--border-subtle);
+        }
+
+        /* Estilo para la imagen del Mockup */
+        .ebook-book-mockup-img {
+            width: 200px;
+            max-width: 100%;
+            height: auto;
+            transform: perspective(600px) rotateY(-10deg);
+            transition: transform 0.5s ease, filter 0.5s ease;
+            filter: drop-shadow(-15px 15px 25px rgba(0,0,0,0.9));
+        }
+
+        .ebook-card:hover .ebook-book-mockup-img {
+            transform: perspective(600px) rotateY(0deg) scale(1.05);
+            filter: drop-shadow(-5px 20px 30px rgba(255, 69, 0, 0.2));
+        }
+
+        .ebook-info {
+            padding: 2.5rem;
+            flex-grow: 1;
+        }
+
+        .ebook-info h3 {
+            margin: 0 0 1rem 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: -0.02em;
+        }
+
+        .ebook-info p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            font-size: 1.05rem;
+        }
+
+        .ebook-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
         /* --- REDISEÑO SECCIÓN HERRAMIENTAS RÁPIDAS --- */
         .tools-grid {
             display: grid;
@@ -645,6 +735,8 @@
             transform: translateY(30px) scale(0.98);
             transition: var(--transition);
             box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.02);
+            display: flex;
+            flex-direction: column;
         }
 
         .modal-overlay.active .modal-content {
@@ -656,8 +748,6 @@
             max-width: 480px;
             padding: 4rem 3rem;
             text-align: center;
-            display: flex;
-            flex-direction: column;
             align-items: center;
             gap: 1.5rem;
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -730,6 +820,7 @@
             aspect-ratio: 16/9;
             background: #000;
             width: 100%;
+            flex-shrink: 0;
         }
 
         .video-container iframe {
@@ -821,6 +912,7 @@
             position: relative;
             overflow: hidden;
             z-index: 5;
+            text-decoration: none;
         }
 
         .btn-primary {
@@ -919,6 +1011,22 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.8);
         }
 
+        /* Ebook Modal Especifico */
+        .ebook-pdf-container {
+            flex-grow: 1;
+            width: 100%;
+            background: #e5e5e5; /* Fondo claro para el lector PDF */
+            border-radius: 0 0 24px 24px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .ebook-pdf-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
         @media (max-width: 768px) {
             .top-navbar { padding: 1rem 1.5rem; }
             .nav-links { gap: 1rem; }
@@ -926,6 +1034,14 @@
             header { padding-top: 8rem; }
             .header-content h1 { font-size: 2.5rem; }
             .lessons-grid { grid-template-columns: 1fr; }
+            
+            /* Ajustes Ebook Mobile */
+            .ebook-card { flex-direction: column; }
+            .ebook-cover-container { width: 100%; min-width: 100%; border-right: none; border-bottom: 1px solid var(--border-subtle); padding: 3rem 1rem; }
+            .ebook-info { padding: 1.5rem; text-align: center; }
+            .ebook-actions { flex-direction: column; }
+            .ebook-actions .btn { width: 100%; }
+            
             .tools-grid { grid-template-columns: 1fr; }
             .modal-footer { flex-direction: column; }
             .btn { width: 100% !important; }
@@ -945,8 +1061,8 @@
         <a href="#" class="nav-logo">nd.</a>
         <div class="nav-links">
             <a href="#clases">Clases</a>
+            <a href="#ebook">E-book</a>
             <a href="#herramientas">Herramientas</a>
-            <a href="https://instagram.com/necesitodisenos" target="_blank" rel="noopener noreferrer">Contacto</a>
         </div>
     </nav>
 
@@ -963,6 +1079,7 @@
     </header>
 
     <main>
+        <!-- SECCIÓN DE CLASES -->
         <div id="clases" class="section-title reveal">Clases disponibles</div>
         <div class="lessons-grid" id="lessonsContainer">
             <!-- Renderizado via JS -->
@@ -979,6 +1096,35 @@
             </button>
         </div>
 
+        <!-- NUEVA SECCIÓN: EBOOK EXCLUSIVO -->
+        <div id="ebook" class="section-title reveal" style="margin-top: 6rem;">Material de Lectura</div>
+        <div class="ebook-container reveal">
+            <div class="ebook-card">
+                <div class="ebook-cover-container">
+                    <img src="https://sandiprojects.com/wp-content/uploads/2026/02/swfwfwf.png" alt="Mockup Ebook - Como Atraer Clientes" class="ebook-book-mockup-img">
+                </div>
+                <div class="ebook-info">
+                    <h3>Como Atraer Clientes: Siendo diseñador freelance</h3>
+                    <p>Leé este libro como si fuera un curso que alguien te está
+dando en privado. Porque, en el fondo, eso es.<br><br>
+Si lo hacés así, no solo vas a entender el sistema.
+Vas a empezar a verlo en acción.</p>
+                    <div class="ebook-actions">
+                        <button class="btn btn-primary" onclick="openEbookModal()" style="width: auto;">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                            Leer online
+                        </button>
+                        <!-- Se agregó target="_blank" y se corrigió el nombre de descarga -->
+                        <a href="https://drive.google.com/file/d/17AgbbCrHuxJYlppsqZatGLN82VvKqNCi/view?usp=sharing" target="_blank" download="Como_Atraer_Clientes.pdf" class="btn btn-secondary" style="width: auto;">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4-4m0 0l-4-4m4 4V4"></path></svg>
+                            Descargar PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN DE HERRAMIENTAS -->
         <div id="herramientas" class="section-title reveal" style="margin-top: 6rem;">Herramientas exclusivas</div>
         <div class="tools-container reveal">
             <div class="tools-grid">
@@ -1021,7 +1167,7 @@
         </div>
     </main>
 
-    <!-- Modal de Bienvenida (Nombre) -->
+    <!-- Modal de Bienvenida -->
     <div class="modal-overlay" id="welcomeModal">
         <div class="modal-content welcome-content">
             <div class="nav-logo" style="margin-bottom: 1rem; font-size: 3rem;">nd.</div>
@@ -1033,7 +1179,7 @@
         </div>
     </div>
 
-    <!-- Modal de Lección -->
+    <!-- Modal de Lección (Video) -->
     <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
         <div class="modal-content" id="modalContent">
             <button class="close-x" id="btnCloseTop" aria-label="Cerrar modal">&times;</button>
@@ -1055,6 +1201,28 @@
                     <button class="btn btn-primary" id="btnMarkComplete" style="width: auto;">Marcar como visto</button>
                     <button class="btn btn-secondary" id="btnClose" style="width: auto;">Cerrar</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal del Ebook (Lector PDF) -->
+    <div class="modal-overlay" id="ebookModalOverlay" role="dialog" aria-modal="true">
+        <!-- Es un poco más ancho y alto para facilitar la lectura -->
+        <div class="modal-content" style="max-width: 1000px; height: 90vh; display: flex; flex-direction: column;">
+            <button class="close-x" onclick="closeEbookModal()" aria-label="Cerrar Lector">&times;</button>
+            
+            <div style="padding: 1.5rem 2rem; border-bottom: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: space-between;">
+                <h2 style="margin: 0; font-size: 1.3rem; display: flex; align-items: center; gap: 10px;">
+                    <svg width="24" height="24" fill="none" stroke="var(--primary)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    Lector de E-book
+                </h2>
+                <!-- Botón secundario por si quieren descargarlo mientras leen (se le agregó el link real) -->
+                <a href="https://drive.google.com/file/d/17AgbbCrHuxJYlppsqZatGLN82VvKqNCi/view?usp=sharing" target="_blank" download="Como_Atraer_Clientes.pdf" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.8rem; border-radius: 8px;">Descargar</a>
+            </div>
+            
+            <div class="ebook-pdf-container">
+                <!-- Se reemplazó el link dummy de prueba por el enlace "preview" de Google Drive -->
+                <iframe id="ebookIframe" src="https://drive.google.com/file/d/17AgbbCrHuxJYlppsqZatGLN82VvKqNCi/preview" title="Ebook Lector"></iframe>
             </div>
         </div>
     </div>
@@ -1084,7 +1252,6 @@
             <div id="certPreviewStep" class="cert-step" style="padding: 2rem;">
                 <h3 style="margin-bottom: 1rem; color: #E5E5E5;">Tu Certificado Oficial</h3>
                 
-                <!-- Aquí se dibujará el certificado como imagen vectorial HD -->
                 <div class="canvas-container">
                     <canvas id="certCanvas" width="2000" height="1414"></canvas>
                 </div>
@@ -1101,7 +1268,7 @@
     </div>
 
     <script>
-        // DATOS DE LAS LECCIONES - EXACTAMENTE LOS MISMOS QUE SOLICITASTE
+        // DATOS DE LAS LECCIONES
         const lessons = [
             {
                 id: 1,
@@ -1142,10 +1309,11 @@
         const userNameInput = document.getElementById('userNameInput');
         const btnSaveName = document.getElementById('btnSaveName');
         
-        // Elementos Certificado
+        // Elementos Certificado y Ebook
         const certificateBanner = document.getElementById('certificateBanner');
         const certModalOverlay = document.getElementById('certModalOverlay');
         const certCanvas = document.getElementById('certCanvas');
+        const ebookModalOverlay = document.getElementById('ebookModalOverlay');
 
         // --- SISTEMA REVEAL AL HACER SCROLL ---
         function revealElements() {
@@ -1189,7 +1357,7 @@
             }
         };
 
-        // RENDERIZAR TARJETAS
+        // RENDERIZAR TARJETAS CLASES
         function renderLessons() {
             lessonsContainer.innerHTML = '';
             lessons.forEach((lesson, index) => {
@@ -1218,7 +1386,7 @@
             revealElements();
         }
 
-        // CONTROL DE MODAL
+        // CONTROL DE MODAL CLASES
         function openModal(id) {
             const lesson = lessons.find(l => l.id === id);
             if (!lesson) return;
@@ -1245,6 +1413,17 @@
             document.body.style.overflow = 'auto';
             modalVideo.src = '';
             activeLessonId = null;
+        }
+
+        // CONTROL DE MODAL EBOOK
+        function openEbookModal() {
+            ebookModalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeEbookModal() {
+            ebookModalOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
         }
 
         // COMPLETAR LECCIÓN
@@ -1283,7 +1462,6 @@
         }
 
         // --- LÓGICA DE DIBUJO DEL CERTIFICADO EN CANVAS ---
-
         function openCertificateModal() {
             certModalOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -1312,11 +1490,8 @@
             const today = new Date();
             const dateStr = today.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
 
-            // Asegurarnos de que las fuentes estén cargadas antes de dibujar
             document.fonts.ready.then(() => {
                 drawCertificateOnCanvas(name, title, dateStr);
-                
-                // Cambiar de paso
                 document.getElementById('certFormStep').classList.remove('active');
                 document.getElementById('certPreviewStep').classList.add('active');
             });
@@ -1327,64 +1502,50 @@
             const W = certCanvas.width;
             const H = certCanvas.height;
 
-            // 1. Fondo principal
             ctx.fillStyle = '#050505';
             ctx.fillRect(0, 0, W, H);
 
-            // 2. Bordes Premium (Simulando el CSS box-shadow anterior)
-            
-            // Borde exterior naranja
             ctx.strokeStyle = '#FF4500';
             ctx.lineWidth = 6;
             ctx.strokeRect(3, 3, W - 6, H - 6);
 
-            // Capa 1: Margen negro
             ctx.strokeStyle = '#050505';
             ctx.lineWidth = 24;
             ctx.strokeRect(18, 18, W - 36, H - 36);
 
-            // Capa 2: Borde naranja translúcido
             ctx.strokeStyle = 'rgba(255, 69, 0, 0.4)';
             ctx.lineWidth = 4;
             ctx.strokeRect(32, 32, W - 64, H - 64);
 
-            // Capa 3: Margen interior negro
             ctx.strokeStyle = '#050505';
             ctx.lineWidth = 20;
             ctx.strokeRect(44, 44, W - 88, H - 88);
 
-            // Capa 4: Borde interior blanco muy sutil
             ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
             ctx.lineWidth = 4;
             ctx.strokeRect(56, 56, W - 112, H - 112);
 
-            // --- CONFIGURACIÓN DE TEXTOS ---
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
 
-            // Logo 'nd.'
             ctx.font = "120px 'Archivo Black', sans-serif";
             ctx.fillStyle = '#FF4500';
             ctx.fillText("nd.", W / 2, 280);
 
-            // Subtítulo
             ctx.font = "600 28px 'Inter', sans-serif";
             ctx.fillStyle = '#888888';
             if(ctx.letterSpacing !== undefined) ctx.letterSpacing = "12px"; 
             ctx.fillText("CERTIFICADO DE FINALIZACIÓN", W / 2, 430);
             if(ctx.letterSpacing !== undefined) ctx.letterSpacing = "0px";
 
-            // Presentado a
             ctx.font = "italic 38px 'Playfair Display', serif";
             ctx.fillStyle = '#A3A3A3';
             ctx.fillText("Este documento certifica que", W / 2, 540);
 
-            // Nombre del Alumno
             ctx.font = "bold 140px 'Playfair Display', serif";
             ctx.fillStyle = '#FFFFFF';
             ctx.fillText(name, W / 2, 720);
 
-            // Línea naranja debajo del nombre
             const nameWidth = ctx.measureText(name).width;
             ctx.beginPath();
             ctx.moveTo(W / 2 - nameWidth / 2 - 40, 810);
@@ -1393,35 +1554,29 @@
             ctx.lineWidth = 6;
             ctx.stroke();
 
-            // Cuerpo del certificado
             ctx.font = "34px 'Inter', sans-serif";
             ctx.fillStyle = '#A3A3A3';
             ctx.fillText("Ha completado satisfactoriamente el programa de", W / 2, 920);
             ctx.fillText("capacitación y obtenido el título de:", W / 2, 970);
 
-            // Título (Diseñador Estratégico)
             ctx.font = "400 48px 'Inter', sans-serif";
             ctx.fillStyle = '#FF4500';
             if(ctx.letterSpacing !== undefined) ctx.letterSpacing = "8px";
             ctx.fillText(title.toUpperCase(), W / 2, 1100);
             if(ctx.letterSpacing !== undefined) ctx.letterSpacing = "0px";
 
-            // --- SECCIÓN FOOTER (Firma y Fecha) ---
             const leftCenterX = 500;
             const rightCenterX = 1500;
             const footerY = 1260;
 
-            // Bloque Izquierdo: Fecha
             ctx.font = "50px 'Playfair Display', serif";
             ctx.fillStyle = '#FFFFFF';
             ctx.fillText(dateStr, leftCenterX, footerY - 40);
 
-            // Bloque Derecho: Firma
             ctx.font = "italic 76px 'Playfair Display', serif";
             ctx.fillStyle = '#FFFFFF';
             ctx.fillText("necesitodisenos", rightCenterX, footerY - 40);
 
-            // Líneas separadoras
             ctx.beginPath();
             ctx.moveTo(leftCenterX - 220, footerY + 20);
             ctx.lineTo(leftCenterX + 220, footerY + 20);
@@ -1431,7 +1586,6 @@
             ctx.lineWidth = 3;
             ctx.stroke();
 
-            // Textos inferiores
             ctx.font = "600 22px 'Inter', sans-serif";
             ctx.fillStyle = '#888888';
             if(ctx.letterSpacing !== undefined) ctx.letterSpacing = "4px";
@@ -1441,10 +1595,7 @@
         }
 
         function downloadCertificate() {
-            // Convierte el contenido del canvas a una imagen PNG de alta calidad
             const imageUrl = certCanvas.toDataURL("image/png", 1.0);
-            
-            // Crea un enlace temporal para forzar la descarga
             const link = document.createElement('a');
             link.download = 'Diploma_NecesitoDisenos.png';
             link.href = imageUrl;
@@ -1458,15 +1609,20 @@
         document.getElementById('btnClose').onclick = closeModal;
         document.getElementById('btnCloseTop').onclick = closeModal;
 
-        // Cerrar al click fuera (solo para el modal de lección)
+        // Cerrar al click fuera para modales
         modalOverlay.onclick = (e) => {
             if (e.target === modalOverlay) closeModal();
         };
+        
+        ebookModalOverlay.onclick = (e) => {
+            if (e.target === ebookModalOverlay) closeEbookModal();
+        }
 
         window.onkeydown = (e) => {
             if (e.key === 'Escape') {
                 closeModal();
                 closeCertificateModal();
+                closeEbookModal();
             }
         };
 
